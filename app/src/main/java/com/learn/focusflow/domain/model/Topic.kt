@@ -10,7 +10,8 @@ import com.learn.focusflow.presentation.theme.gradient5
 data class Topic(
     val name: String,
     val goalHours: Float,
-    val colors: List<Color>
+    val colors: List<Color>,
+    val topicId: Int
 ) {
     companion object {
         val topicCardColors = listOf(gradient1, gradient2, gradient3, gradient4, gradient5)

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,11 +25,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.learn.focusflow.R
 import com.learn.focusflow.domain.model.Task
+import com.learn.focusflow.util.Priority
 
 fun LazyListScope.tasksList(
     sectionTitle: String,
     emptyListText: String,
-    tasks: List<Task>
+    tasks: List<Task>,
+    onTaskCardClick: (Int?) -> Unit,
+    onCheckBoxClick: (Task) -> Unit
 ) {
     item {
         Text(
@@ -58,15 +62,25 @@ fun LazyListScope.tasksList(
             }
         }
     }
+    items(tasks) { task ->
+        TaskCard(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+            task = task,
+            onCheckBoxClick = { onCheckBoxClick(task) },
+            onClick = { onTaskCardClick(task.taskId) }
+        )
+    }
 }
 
 @Composable
 private fun TaskCard(
     modifier: Modifier,
-    task: Task
+    task: Task,
+    onCheckBoxClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     ElevatedCard(
-        modifier = modifier.clickable {  }
+        modifier = modifier.clickable { onClick }
     ) {
         Row(
             modifier = Modifier
@@ -74,6 +88,11 @@ private fun TaskCard(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            TaskCheckBox(
+                isComplete = task.isComplete,
+                borderColor = Priority.fromInt(task.priority).color,
+                onCheckBoxClick = { onCheckBoxClick }
+            )
             Text(
                 text = task.title,
                 maxLines = 1,

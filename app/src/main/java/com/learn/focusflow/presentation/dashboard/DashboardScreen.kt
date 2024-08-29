@@ -32,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.learn.focusflow.R
+import com.learn.focusflow.domain.model.Task
 import com.learn.focusflow.domain.model.Topic
 import com.learn.focusflow.presentation.components.CountCard
 import com.learn.focusflow.presentation.components.TopicCard
@@ -41,11 +42,64 @@ import com.learn.focusflow.presentation.components.tasksList
 fun DashboardScreen() {
 
     val topics = listOf(
-        Topic(name = "Learn", goalHours = 10f, colors = Topic.topicCardColors[0]),
-        Topic(name = "Work", goalHours = 10f, colors = Topic.topicCardColors[1]),
-        Topic(name = "Exercise", goalHours = 10f, colors = Topic.topicCardColors[2]),
-        Topic(name = "Break", goalHours = 10f, colors = Topic.topicCardColors[3]),
-        Topic(name = "Sleep", goalHours = 10f, colors = Topic.topicCardColors[4])
+        Topic(name = "Learn", goalHours = 10f, colors = Topic.topicCardColors[0], topicId = 0),
+        Topic(name = "Work", goalHours = 10f, colors = Topic.topicCardColors[1], topicId = 0),
+        Topic(name = "Exercise", goalHours = 10f, colors = Topic.topicCardColors[2], topicId = 0),
+        Topic(name = "Break", goalHours = 10f, colors = Topic.topicCardColors[3], topicId = 0),
+        Topic(name = "Sleep", goalHours = 10f, colors = Topic.topicCardColors[4], topicId = 0)
+    )
+
+    val tasks = listOf(
+        Task(
+            title = "Exercise",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = false,
+            taskTopicId = 0,
+            taskId = 1
+        ),
+        Task(
+            title = "Meditate",
+            description = "",
+            dueDate = 0L,
+            priority = 2,
+            relatedToSubject = "",
+            isComplete = false,
+            taskTopicId = 0,
+            taskId = 1
+        ),
+        Task(
+            title = "Study",
+            description = "",
+            dueDate = 0L,
+            priority = 3,
+            relatedToSubject = "",
+            isComplete = true,
+            taskTopicId = 0,
+            taskId = 1
+        ),
+        Task(
+            title = "Work",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = false,
+            taskTopicId = 0,
+            taskId = 1
+        ),
+        Task(
+            title = "Read Book",
+            description = "",
+            dueDate = 0L,
+            priority = 1,
+            relatedToSubject = "",
+            isComplete = false,
+            taskTopicId = 0,
+            taskId = 1
+        ),
     )
 
     Scaffold(
@@ -85,7 +139,9 @@ fun DashboardScreen() {
             tasksList(
                 sectionTitle = "UPCOMING TASKS",
                 emptyListText = "You don't have any upcoming tasks.\nClick + button in topics screen to add new task",
-                tasks = emptyList()
+                tasks = tasks,
+                onCheckBoxClick = {},
+                onTaskCardClick = {}
             )
         }
     }
