@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,19 +32,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.learn.focusflow.R
-import com.learn.focusflow.domain.model.Subject
+import com.learn.focusflow.domain.model.Topic
 import com.learn.focusflow.presentation.components.CountCard
-import com.learn.focusflow.presentation.components.SubjectCard
+import com.learn.focusflow.presentation.components.TopicCard
+import com.learn.focusflow.presentation.components.tasksList
 
 @Composable
 fun DashboardScreen() {
 
-    val subjects = listOf(
-        Subject(name = "Learn", goalHours = 10f, colors = Subject.subjectCardColors[0]),
-        Subject(name = "Work", goalHours = 10f, colors = Subject.subjectCardColors[1]),
-        Subject(name = "Exercise", goalHours = 10f, colors = Subject.subjectCardColors[2]),
-        Subject(name = "Break", goalHours = 10f, colors = Subject.subjectCardColors[3]),
-        Subject(name = "Sleep", goalHours = 10f, colors = Subject.subjectCardColors[4])
+    val topics = listOf(
+        Topic(name = "Learn", goalHours = 10f, colors = Topic.topicCardColors[0]),
+        Topic(name = "Work", goalHours = 10f, colors = Topic.topicCardColors[1]),
+        Topic(name = "Exercise", goalHours = 10f, colors = Topic.topicCardColors[2]),
+        Topic(name = "Break", goalHours = 10f, colors = Topic.topicCardColors[3]),
+        Topic(name = "Sleep", goalHours = 10f, colors = Topic.topicCardColors[4])
     )
 
     Scaffold(
@@ -67,9 +69,24 @@ fun DashboardScreen() {
             item {
                 SubjectCardsSection(
                     modifier = Modifier.fillMaxWidth(),
-                    subjectList = subjects
+                    topicList = topics
                 )
             }
+            item { 
+                Button(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 48.dp, vertical = 20.dp)
+                ) {
+                    Text(text = "Start Focus Session")
+                }
+            }
+            tasksList(
+                sectionTitle = "UPCOMING TASKS",
+                emptyListText = "You don't have any upcoming tasks.\nClick + button in topics screen to add new task",
+                tasks = emptyList()
+            )
         }
     }
 }
@@ -118,7 +135,7 @@ private fun CountCardsSection(
 @Composable
 private fun SubjectCardsSection(
     modifier: Modifier,
-    subjectList: List<Subject>,
+    topicList: List<Topic>,
     emptyListText: String = "You don't have any topics yet.\n Click the + button to add new topic."
 ) {
     Column {
@@ -139,7 +156,7 @@ private fun SubjectCardsSection(
                 )
             }
         }
-        if (subjectList.isEmpty()) {
+        if (topicList.isEmpty()) {
            Image(
                modifier = Modifier
                    .size(120.dp)
@@ -159,10 +176,10 @@ private fun SubjectCardsSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(start = 12.dp, end = 12.dp)
         ) {
-            items(subjectList) {subject ->
-                SubjectCard(
-                    subjectName = subject.name,
-                    gradientColors = subject.colors,
+            items(topicList) {topic ->
+                TopicCard(
+                    topicName = topic.name,
+                    gradientColors = topic.colors,
                     onClick = {}
                 )
             }

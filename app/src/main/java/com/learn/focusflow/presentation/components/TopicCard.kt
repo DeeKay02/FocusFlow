@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.sp
 import com.learn.focusflow.R
 
 @Composable
-fun SubjectCard(
+fun TopicCard(
     modifier: Modifier = Modifier,
-    subjectName: String,
+    topicName: String,
     gradientColors: List<Color>,
     onClick: () -> Unit
 ) {
@@ -41,11 +41,11 @@ fun SubjectCard(
         ) {
             Image(
                 painter = painterResource(R.drawable.img_books),
-                contentDescription = subjectName,
+                contentDescription = topicName,
                 modifier = Modifier.size(70.dp)
             )
             Text(
-                text = subjectName,
+                text = topicName,
                 style = MaterialTheme.typography.headlineMedium.copy(fontSize = 30.sp),
                 color = Color.White
             )
